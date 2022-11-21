@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Edit">
+
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="Informações"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:id="@+id/materiaAXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Matéria"
+            android:ems="15" />
+
+        <EditText
+            android:id="@+id/codAXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="Código"
+            android:ems="15" />
+
+        <EditText
+            android:id="@+id/profAXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="Docente"
+            android:ems="15" />
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Presença"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:id="@+id/percentoAXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="Porcentagem obrigatória (%)"
+            android:ems="15" />
+
+        <EditText
+            android:id="@+id/diasAXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="Aulas / Semana (1 - 3)"
+            android:ems="15" />
+
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Horas / Aula"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:id="@+id/dia1AXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Dia 1"
+            android:ems="15" />
+        <EditText
+            android:id="@+id/dia2AXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Dia 2"
+            android:ems="15" />
+        <EditText
+            android:id="@+id/dia3AXML"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Dia 3"
+            android:ems="15" />
+
+        <Button
+            android:id="@+id/addAXML"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/cinza"
+            android:text="ADD"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+</ScrollView>
