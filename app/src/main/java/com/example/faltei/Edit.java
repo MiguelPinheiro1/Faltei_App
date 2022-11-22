@@ -1,27 +1,15 @@
 package com.example.faltei;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.provider.ContactsContract;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.faltei.databinding.ActivityEditBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Edit extends AppCompatActivity {
     //variáveis correspondes aos botões
-    private Button btnAtualiza;
+    private Button btnEdit;
     private Button btnComplet;
 
     //variáveis correspondente aos campoos que serão preenchido para atualização
@@ -41,7 +29,7 @@ public class Edit extends AppCompatActivity {
         db = new DataBase(this);
 
         //"linkando" as váriaveis com as Views no XML
-        btnAtualiza = (Button) findViewById(R.id.editEXML);
+        btnEdit = (Button) findViewById(R.id.editEXML);
         btnComplet = (Button) findViewById(R.id.completEXML);
         mat = (EditText) findViewById(R.id.materiaEXML);
         cod = (EditText) findViewById(R.id.codEXML);
@@ -57,7 +45,7 @@ public class Edit extends AppCompatActivity {
             disciplina = db.pesquisaDisciplina(matEdit);
             // se não existe
             if (disciplina.get_id() == 0) {
-                Toast.makeText(Edit.this, "Contato inexistente!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Edit.this, "Matéria inexistente", Toast.LENGTH_LONG).show();
                 mat.setText("");
                 cod.setText("");
                 prof.setText("");
@@ -67,34 +55,32 @@ public class Edit extends AppCompatActivity {
                 mat.setText(disciplina.getMat());
                 cod.setText(disciplina.getCod());
                 prof.setText(disciplina.getProf());
-                    /*percent.setText(String.valueOf(disciplina.getPercent()));
-                    aulas.setText(String.valueOf(disciplina.getAulas()));
-                    dia1.setText(String.valueOf(disciplina.getDia1()));
-                    dia2.setText(String.valueOf(disciplina.getDia2()));
-                    dia3.setText(String.valueOf(disciplina.getDia3()));*/
+                /*percent.setText(String.valueOf(disciplina.getPercent()));
+                aulas.setText(String.valueOf(disciplina.getAulas()));
+                dia1.setText(String.valueOf(disciplina.getDia1()));
+                dia2.setText(String.valueOf(disciplina.getDia2()));
+                dia3.setText(String.valueOf(disciplina.getDia3()));*/
             }
-
         });
 
 
         //listener do botão atualiza para processar a atualização do registro na tabela
-        btnAtualiza.setOnClickListener(view -> {
+        btnEdit.setOnClickListener(view -> {
             // Verfica se não foi solicitado acidentalmente para atualizar sem ter carregado previamente um contato.
-            //ou após um retorno de contato inexistente.
+            // ou após um retorno de contato inexistente.
             if (mat.getText().length() == 0) {
-                Toast.makeText(Edit.this, "Por favor insira o nome do contato!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Edit.this, "Insira a matéria", Toast.LENGTH_SHORT).show();
 
-            }
-            //captura dos campos da tela os valores e modifica os valores dos campos do objeto contato retornado
+            }//captura dos campos da tela os valores e modifica os valores dos campos do objeto contato retornado
             else {
                 String materia = mat.getText().toString();
                 String codigo = cod.getText().toString();
                 String docente = prof.getText().toString();
-                    /*int porcentagem =Integer.parseInt(percent.getText().toString());
-                    int aulasemana =Integer.parseInt(aulas.getText().toString());
-                    int d1 =Integer.parseInt(dia1.getText().toString());
-                    int d2 =Integer.parseInt(dia2.getText().toString());
-                    int d3 =Integer.parseInt(dia3.getText().toString());*/
+                /*int porcentagem =Integer.parseInt(percent.getText().toString());
+                int aulasemana =Integer.parseInt(aulas.getText().toString());
+                int d1 =Integer.parseInt(dia1.getText().toString());
+                int d2 =Integer.parseInt(dia2.getText().toString());
+                int d3 =Integer.parseInt(dia3.getText().toString());*/
                 disciplina.setMat(materia);
                 disciplina.setCod(codigo);
                 disciplina.setProf(docente);
@@ -102,9 +88,9 @@ public class Edit extends AppCompatActivity {
                 long id = db.salvaDisciplina(disciplina);
                 //mensagens de retorno da operação de atualização
                 if (id != -1)
-                    Toast.makeText(Edit.this, "Atualizado", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Edit.this,"Atualizado",Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(Edit.this, "Não foi possível editar.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Edit.this,"Não foi possível editar.",Toast.LENGTH_LONG).show();
 
                 mat.setText("");
                 cod.setText("");

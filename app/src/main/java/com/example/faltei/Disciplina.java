@@ -13,35 +13,17 @@ public class Disciplina {
         this.prof = prof;
     }
 
-    public long get_id() {
-        return _id;
-    }
-    public void set_id(long _id) {
-        this._id = _id;
-    }
-    public String getMat() {
-        return mat;
-    }
-    public void setMat(String nome) {
-        this.mat = nome;
-    }
-    public String getCod() {
-        return cod;
-    }
-    public void setCod(String nome) {
-        this.cod = nome;
-    }
-    public String getProf() {
-        return prof;
-    }
-    public void setProf(String email) {
-        this.prof = email;
-    }
+    public long get_id() {return _id;}
+    public void set_id(long _id) {this._id = _id;}
+    public String getMat() {return mat;}
+    public void setMat(String materia) {this.mat = materia;}
+    public String getCod() {return cod;}
+    public void setCod(String codigo) {this.cod = codigo;}
+    public String getProf() {return prof;}
+    public void setProf(String docente) {this.prof = docente;}
 
     @Override
-    public String toString() {
-        return  "\n"+ "Matéria :"+mat+ "\n"+
-                "Código :"+cod+"\n"+
-                "Docente: "+prof+"\n";
+    public String toString() {return
+    "\n"+ "Matéria: "+mat+ "\n"+ "Código: "+cod+"\n"+ "Docente: "+prof+"\n";
     }
 }

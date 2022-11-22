@@ -40,7 +40,7 @@ public class Add extends AppCompatActivity {
         btnAdd.setOnClickListener(view -> {
             //verifica se houve tentativa de cadastro sem preenchimento de todos os campos
             if (mat.getText().length() == 0 ||cod.getText().length() == 0||prof.getText().length() == 0) {
-            Toast.makeText(Add.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Add.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 
             } else {
                 //Convertendo os  conteúdos dos EditText para variáveis do JAVA

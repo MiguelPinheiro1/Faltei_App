@@ -17,7 +17,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String TAG = "SQL";
     public static final String NOME_BANCO = "BancodeDados.db";
     public static final int VERSAO_BANCO = 1;
-    public static final String TABLE_NAME = "disciplinas";
+    public static final String TABLE_MAT = "disciplinas";
     public static final String COLUNA0 = "_id";
     public static final String COLUNA1 = "materia";
     public static final String COLUNA2 = "codigo";
@@ -25,7 +25,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     // 3 - criação do "statement que define a tabela do banco de dados"
     private static final String SQL_CREATE_TABLE =
-            "CREATE TABLE " +TABLE_NAME + " ("
+            "CREATE TABLE " +TABLE_MAT + " ("
                     + COLUNA0 +" INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUNA1 + " TEXT,"
                     + COLUNA2 + " TEXT,"
@@ -44,7 +44,7 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE);
 
         //Logcat para informar a criação da tabela
-        Log.d(TAG, "Tabela"+TABLE_NAME+" criada com sucesso");
+        Log.d(TAG, "Tabela"+TABLE_MAT+" criada com sucesso");
     }
 
 
@@ -75,12 +75,12 @@ public class DataBase extends SQLiteOpenHelper {
             if(id!=0){//se já existe este contato e queremos simplesmente atualizá-lo
                 // String _id = String.valueOf(id);
                 //String[] whereArgs = new String[]{_id};
-                int count = db.update(TABLE_NAME, valores, "_id =?",new String[]{String.valueOf(id)});
+                int count = db.update(TABLE_MAT, valores, "_id=?",new String[]{String.valueOf(id)});
                 return count; // retorna o numero de linhas alteradas.
 
             }
             else{//se não existe o contato e vamos incluí-lo na tabela.
-                id = db.insert(TABLE_NAME,null,valores);
+                id = db.insert(TABLE_MAT,null,valores);
                 return id; //retorna o ID da nova linha inserida ou -1 se ocorrer erro
 
             }
@@ -97,8 +97,8 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();//abre a conexão com o banco de dados
         try {
             //apago o registro onde na coluna nome o valor do registro corresponde a String passada.
-            int count = db.delete(TABLE_NAME, "materia=?", new String[]{materiaDisciplina});
-            Log.i(TAG, "deletou registro =>" + count);
+            int count = db.delete(TABLE_MAT,"materia=?", new String[]{materiaDisciplina});
+            Log.i(TAG,"deletou registro =>" + count);
             return count;//retorna zero se não houver contato registro que coincida com o valor passado para o método.
         } finally {
             db.close();//fecha a conexão
@@ -108,36 +108,26 @@ public class DataBase extends SQLiteOpenHelper {
 // MIGUEL: Dae bro! Aposto que o erro na visualização está aqui embaixo!!!!!!!!!!
 
     //7 - metodo que devolve um ArrayList com todos os contatos da agenda.
+
     public ArrayList<Disciplina> findAll() {
         SQLiteDatabase db = getWritableDatabase();
-        //Declarando o ArrayList de objetos do tipo Contato.
         ArrayList<Disciplina> lista = new ArrayList<>();
         try {
-            //colocando o valor dos campos em null, retorna todos os registros da tabela.
-            Cursor d = db.query(TABLE_NAME, null, null, null, null, null, null);
-            if (d.moveToFirst()) {//move o cursor para o primeiro registro
-                //laço do while para correr todos os registros e formar o Array que representa a lista de registros.
-                do {
-                    long id;
-                    id = d.getLong(d.getColumnIndex("_id"));
-                    String materia;
-                    materia = d.getString(d.getColumnIndex("mat"));
-                    String codigo;
-                    codigo = d.getString(d.getColumnIndex("cod"));
-                    String docente;
-                    docente = d.getString(d.getColumnIndex("prof"));
+            Cursor d = db.query(TABLE_MAT, null, null, null, null, null, null);
+            if (d.moveToFirst())
+            {do {
+                long id = d.getLong(d.getColumnIndexOrThrow("_id"));
+                String mat = d.getString(d.getColumnIndexOrThrow("materia"));
+                String cod = d.getString(d.getColumnIndexOrThrow("codigo"));
+                String prof = d.getString(d.getColumnIndexOrThrow("docente"));
 
-                    Disciplina currentDisci;
-                    currentDisci = new Disciplina(id, materia, codigo, docente);
-                    lista.add(currentDisci);
+                Disciplina currentDisci = new Disciplina(id, mat, cod, prof);
+                lista.add(currentDisci);
 
-                } while (d.moveToNext());//move para a próxima posição
-
+                } while (d.moveToNext());
             }
-            return lista;//retorna o Array contendo os contatos
-        } finally {
-            db.close();//fecha a conexão
-        }
+            return lista;
+        } finally {db.close();}
     }
 
 
@@ -146,32 +136,30 @@ public class DataBase extends SQLiteOpenHelper {
 
     public Disciplina pesquisaDisciplina(String materiaDisciplina) {
         SQLiteDatabase db = getWritableDatabase();
-        String materia;
-        String codigo;
-        String docente;
+        String mat;
+        String cod;
+        String prof;
         long id;
 
         try {
-            Cursor d = db.query(TABLE_NAME, null,"nome=?", new String[]{materiaDisciplina}, null, null, null, null);
+            Cursor d = db.query(TABLE_MAT, null,"materia=?", new String[]{materiaDisciplina}, null, null, null, null);
             if(d.moveToFirst()) {//verifica se o contato existe, se sim extrai os valores para criação  um objeto Contato com os valores
                 id= d.getLong(d.getColumnIndexOrThrow("_id"));
-                materia = d.getString(d.getColumnIndexOrThrow("materia"));
-                codigo = d.getString(d.getColumnIndexOrThrow("codigo"));
-                docente = d.getString(d.getColumnIndexOrThrow("docente"));
-                //Contato contato = new Contato(id, nome, telefone, email);
+                mat = d.getString(d.getColumnIndexOrThrow("materia"));
+                cod = d.getString(d.getColumnIndexOrThrow("codigo"));
+                prof = d.getString(d.getColumnIndexOrThrow("docente"));
+                //Disciplina disciplina = new disciplina(id, materia, codigo, docente);
             }
             //Se não for encontrado, define  valores dummy para criação de um objeto
             //pois o método retorna um objeto do tipo contato
             else{
                 id = 0;
-                materia = "math";
-                codigo = "EB999" ;
-                docente = "john";
+                mat = "math";
+                cod = "EB999" ;
+                prof = "john";
             }
-            Disciplina disciplina = new Disciplina(id, materia, codigo, docente);
+            Disciplina disciplina = new Disciplina(id, mat, cod, prof);
             return disciplina;
-        } finally {
-            db.close();
-        }
+        } finally {db.close();}
     }
 }
