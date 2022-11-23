@@ -1,7 +1,6 @@
 package com.example.faltei;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,13 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Add extends AppCompatActivity {
-        //variável corresponde ao botão de cadastrar
+    //variável corresponde ao botão de cadastrar
     private Button btnAdd;
 
     //variáveis correspondente aos campoos que serão preenchido para o cadastro do contato
     private EditText mat;
     private EditText cod;
     private EditText prof;
+    private EditText cre;
 
     //Variável criada para apontar para o Banco de dados
     private DataBase db;
@@ -33,13 +33,13 @@ public class Add extends AppCompatActivity {
         mat = findViewById(R.id.materiaAXML);
         cod = findViewById(R.id.codAXML);
         prof = findViewById(R.id.profAXML);
-
+        cre = findViewById(R.id.credAXML);
 
 
 //implementando o Listener do botão.
         btnAdd.setOnClickListener(view -> {
             //verifica se houve tentativa de cadastro sem preenchimento de todos os campos
-            if (mat.getText().length() == 0 ||cod.getText().length() == 0||prof.getText().length() == 0) {
+            if (mat.getText().length() == 0 ||cod.getText().length() == 0||prof.getText().length() == 0 || cre.getText().length() == 0) {
                 Toast.makeText(Add.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 
             } else {
@@ -47,19 +47,21 @@ public class Add extends AppCompatActivity {
                 String materia = mat.getText().toString();
                 String codigo = cod.getText().toString();
                 String docente = prof.getText().toString();
+                int credito = Integer.parseInt(cre.getText().toString());
                 //cria um novo objeto da classe cadastro com as informações para serem inseridas na tabela do banco dados
-                Disciplina discip = new Disciplina(0, materia, codigo, docente);
+                Disciplina discip = new Disciplina(0, materia, codigo, docente, credito, 0,0);
                 // chama o método salavaContato do ContatosDB para a inserção na tabela
                 long id = db.salvaDisciplina(discip);
-                if (id != -1)
+                if (id != -1) {
                     Toast.makeText(Add.this, "Matéria adicionada", Toast.LENGTH_LONG).show();
-                else
+                }else
                     Toast.makeText(Add.this, "Não foi possível adicionar.", Toast.LENGTH_LONG).show();
 
                 //limpa as caixa de texto para um novo cadastro.
                 mat.setText("");
                 cod.setText("");
                 prof.setText("");
+                cre.setText("");
             }
         });
     }

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_edita;
     private Button btn_apaga;
     private Button btn_internet;
-
+    private Button btn_faltas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         btn_panorama = (Button) findViewById(R.id.panoramaXML);
         btn_edita = (Button) findViewById(R.id.editarXML);
         btn_apaga = (Button) findViewById(R.id.apagarXML);
+        btn_faltas = (Button) findViewById(R.id.faltasXML);
         btn_internet = (Button) findViewById(R.id.internetXML);
+
 
         btn_add.setOnClickListener(v -> {
             Intent it = new Intent(MainActivity.this, Add.class);
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         btn_apaga.setOnClickListener(view -> {
             Intent it = new Intent(MainActivity.this, Delete.class);
+            startActivity(it);
+        });
+
+        btn_faltas.setOnClickListener(view -> {
+            Intent it = new Intent(MainActivity.this, Faltas.class);
             startActivity(it);
         });
 

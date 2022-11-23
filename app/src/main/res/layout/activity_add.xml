@@ -61,22 +61,16 @@
             android:textColor="@color/black"
             android:textSize="15dp"/>
 
-        <EditText
-            android:id="@+id/percentoAXML"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:hint="Porcentagem obrigatória (%)"
-            android:ems="15" />
+
 
         <EditText
-            android:id="@+id/diasAXML"
+            android:id="@+id/credAXML"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:hint="Aulas / Semana (1 - 3)"
+            android:hint="Créditos"
+            android:inputType="number"
             android:ems="15" />
 
         <TextView
@@ -85,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Horas / Aula"
+            android:text="Horas por semana"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="15dp"/>
@@ -96,6 +90,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:hint="Dia 1"
+            android:inputType="number"
             android:ems="15" />
         <EditText
             android:id="@+id/dia2AXML"
@@ -103,6 +98,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:hint="Dia 2"
+            android:inputType="number"
             android:ems="15" />
         <EditText
             android:id="@+id/dia3AXML"
@@ -110,6 +106,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:hint="Dia 3"
+            android:inputType="number"
             android:ems="15" />
 
         <Button

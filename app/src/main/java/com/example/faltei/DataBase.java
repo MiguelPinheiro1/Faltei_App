@@ -11,48 +11,38 @@ import java.util.ArrayList;
 
 public class DataBase extends SQLiteOpenHelper {
 
-    //2 - criando constantes para formação o "statement" de criação da tabela do banco de dados
-    // e outras constantes que serão usadas
-
-    public static final String TAG = "SQL";
-    public static final String NOME_BANCO = "BancodeDados.db";
-    public static final int VERSAO_BANCO = 1;
+    public static final String tag = "SQL";
+    public static final String banc = "BancodeDados.db";
+    public static final int version = 1;
     public static final String TABLE_MAT = "disciplinas";
-    public static final String COLUNA0 = "_id";
-    public static final String COLUNA1 = "materia";
-    public static final String COLUNA2 = "codigo";
-    public static final String COLUNA3 = "docente";
+    public static final String COLUMN0 = "_id";
+    public static final String COLUMN1 = "materia";
+    public static final String COLUMN2 = "codigo";
+    public static final String COLUMN3 = "docente";
+    public static final String COLUMN4 = "credito";
+    public static final String COLUMN5 = "assiduidade";
+    public static final String COLUMN6 = "faltasmax";
+    private static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_MAT + " ("
+                    + COLUMN0 +" INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN1 + "TEXT,"
+                    + COLUMN2 + "TEXT,"
+                    + COLUMN3 + "TEXT,"
+                    + COLUMN4 + "INT,"
+                    + COLUMN5 + "INT,"
+                    + COLUMN6 + "INT)";
 
-    // 3 - criação do "statement que define a tabela do banco de dados"
-    private static final String SQL_CREATE_TABLE =
-            "CREATE TABLE " +TABLE_MAT + " ("
-                    + COLUNA0 +" INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUNA1 + " TEXT,"
-                    + COLUNA2 + " TEXT,"
-                    + COLUNA3 + " TEXT )";
-
-
-    // 1 - criando construtor do banco de dados
     public DataBase(Context context) {
-        super(context, NOME_BANCO, null, VERSAO_BANCO);
+        super(context, banc, null, version);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 4 - criação da tabela de contatos
         db.execSQL(SQL_CREATE_TABLE);
-
-        //Logcat para informar a criação da tabela
-        Log.d(TAG, "Tabela"+TABLE_MAT+" criada com sucesso");
+        Log.d(tag, "Tabela"+TABLE_MAT+" criada");
     }
-
-
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // caso mude a versão do bnco de dados, podemos executar alguma instrução SQL aqui, além de atualizar a versão do banco
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     //5 - Criando o metodo utilizado para salvar os contatos ou atualizar  contato existente
     //recebe um contato( objeto Contato) já existente para atualização ou um novo contato para cadastro
@@ -69,9 +59,12 @@ public class DataBase extends SQLiteOpenHelper {
             //em um formato que o banco de dados entende.
             ContentValues valores = new ContentValues();
             //transfere os valores das variáveis de instancia do objeto para a variável valor na forma (chave, valor)
-            valores.put(COLUNA1,disciplina.getMat());
-            valores.put(COLUNA2,disciplina.getCod());
-            valores.put(COLUNA3,disciplina.getProf());
+            valores.put(COLUMN1,disciplina.getMat());
+            valores.put(COLUMN2,disciplina.getCod());
+            valores.put(COLUMN3,disciplina.getProf());
+            valores.put(COLUMN4,disciplina.getCre());
+            valores.put(COLUMN5,disciplina.getAssi());
+            valores.put(COLUMN6,disciplina.getFmax());
             if(id!=0){//se já existe este contato e queremos simplesmente atualizá-lo
                 // String _id = String.valueOf(id);
                 //String[] whereArgs = new String[]{_id};
@@ -98,7 +91,7 @@ public class DataBase extends SQLiteOpenHelper {
         try {
             //apago o registro onde na coluna nome o valor do registro corresponde a String passada.
             int count = db.delete(TABLE_MAT,"materia=?", new String[]{materiaDisciplina});
-            Log.i(TAG,"deletou registro =>" + count);
+            Log.i(tag,"deletou registro =>" + count);
             return count;//retorna zero se não houver contato registro que coincida com o valor passado para o método.
         } finally {
             db.close();//fecha a conexão
@@ -120,8 +113,10 @@ public class DataBase extends SQLiteOpenHelper {
                 String mat = d.getString(d.getColumnIndexOrThrow("materia"));
                 String cod = d.getString(d.getColumnIndexOrThrow("codigo"));
                 String prof = d.getString(d.getColumnIndexOrThrow("docente"));
-
-                Disciplina currentDisci = new Disciplina(id, mat, cod, prof);
+                int cre = d.getInt(d.getColumnIndexOrThrow("credito"));
+                int assi = d.getInt(d.getColumnIndexOrThrow("assiduidade"));
+                float fmax = d.getFloat(d.getColumnIndexOrThrow("faltasmax"));
+                Disciplina currentDisci = new Disciplina(id, mat, cod, prof, cre, assi, fmax);
                 lista.add(currentDisci);
 
                 } while (d.moveToNext());
@@ -136,18 +131,25 @@ public class DataBase extends SQLiteOpenHelper {
 
     public Disciplina pesquisaDisciplina(String materiaDisciplina) {
         SQLiteDatabase db = getWritableDatabase();
+        long id;
         String mat;
         String cod;
         String prof;
-        long id;
+        int cre = 0;
+        int assi = 0;
+        float fmax = 0;
 
         try {
             Cursor d = db.query(TABLE_MAT, null,"materia=?", new String[]{materiaDisciplina}, null, null, null, null);
             if(d.moveToFirst()) {//verifica se o contato existe, se sim extrai os valores para criação  um objeto Contato com os valores
-                id= d.getLong(d.getColumnIndexOrThrow("_id"));
+                id = d.getLong(d.getColumnIndexOrThrow("_id"));
                 mat = d.getString(d.getColumnIndexOrThrow("materia"));
                 cod = d.getString(d.getColumnIndexOrThrow("codigo"));
                 prof = d.getString(d.getColumnIndexOrThrow("docente"));
+                cre = d.getInt(d.getColumnIndexOrThrow("credito"));
+                assi = d.getInt(d.getColumnIndexOrThrow("faltas"));
+                fmax = d.getFloat(d.getColumnIndexOrThrow("faltasmax"));
+
                 //Disciplina disciplina = new disciplina(id, materia, codigo, docente);
             }
             //Se não for encontrado, define  valores dummy para criação de um objeto
@@ -156,9 +158,12 @@ public class DataBase extends SQLiteOpenHelper {
                 id = 0;
                 mat = "math";
                 cod = "EB999" ;
-                prof = "john";
+                prof = "Jorginho";
+                cre = 1;
+                assi = 2;
+                fmax = 3;
             }
-            Disciplina disciplina = new Disciplina(id, mat, cod, prof);
+            Disciplina disciplina = new Disciplina(id, mat, cod, prof, cre, assi, fmax);
             return disciplina;
         } finally {db.close();}
     }
