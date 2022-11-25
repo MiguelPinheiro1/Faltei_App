@@ -9,13 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Faltas"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+        <activity android:name=".Faltas" />
         <activity android:name=".Edit" />
         <activity android:name=".Delete" />
         <activity android:name=".Panorama" />

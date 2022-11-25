@@ -6,17 +6,15 @@ public class Disciplina {
     private String cod;
     private String prof;
     private int cre;
-    private int assi;
-    private float fmax;
+    private int falta;
 
-    public Disciplina(long _id, String mat, String cod, String prof, int cre, int assi, float fmax) {
+    public Disciplina(long _id, String mat, String cod, String prof, int cre, int falta) {
         this._id = _id;
         this.mat = mat;
         this.cod = cod;
         this.prof = prof;
         this.cre = cre;
-        this.assi = assi;
-        this.fmax = fmax;
+        this.falta = falta;
     }
 
     public long get_id() {return _id;}
@@ -31,24 +29,27 @@ public class Disciplina {
     public String getProf() {return prof;}
     public void setProf(String docente) {this.prof = docente;}
 
-    public int getCre() {return cre;}
-    public void setCre(int credito) {this.cre = credito;}
-
-    public int getAssi() {return assi;}
-    public void setAssi(int assiduidade) {this.assi = assiduidade;}
-
-    public Float getFmax() {
-        return fmax;
+    public int getCre() {
+        return cre;
     }
-    public void setFmax(float faltasmax) {this.fmax = faltasmax;}
+    public void setCre(int creditos) {
+        this.cre = creditos;
+    }
+
+    public int getFalta() {
+        return falta;
+    }
+    public void setFalta(int faltas) {
+        this.falta = faltas;
+    }
 
     @Override
     public String toString() {
-        return "\n"+ "Matéria: " + mat + "\n" +
-                "Código: " + cod + "\n" +
-                "Docente: " + prof + "\n" +
-                "Créditos: " + cre + "\n" +
-                "Minhas Faltas: " + assi + "\n" +
-                "Faltas Máximas" + fmax + "\n";
+        return  "\n" + "Matéria: " + mat +
+                "\n" + "Código: " + cod +
+                "\n" + "Docente: " + prof +
+                "\n" + "Créditos: " + cre +
+                "\n" + "Faltas Máx: " + ((100*(cre*15) -75*(15*cre))/(100*cre)) +
+                "\n" + "Faltas: " + falta + "\n";
     }
 }

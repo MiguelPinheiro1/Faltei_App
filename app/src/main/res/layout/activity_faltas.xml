@@ -8,38 +8,46 @@
     tools:context=".Faltas">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textview1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
+        android:text="Faltei!"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="40dp"
-        android:text="Faltei !" />
+        android:textSize="25dp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/materiaFXML"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Matéria"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
-
-
-    <EditText
-        android:id="@+id/assiFXML"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="Faltas"
-        android:minHeight="48dp" />
+        android:hint="Matéria"
+        android:ems="15" />
 
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Seu número de faltas:"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:id="@+id/totalfFXML"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:hint="Total"
+        android:inputType="number"
+        android:ems="15"
+        android:textColor="@color/unicamp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,23 +58,22 @@
             android:id="@+id/completFXML"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="100dp"
             android:background="@color/cinza"
             android:text="Complet"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/editFXML"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:background="@color/cinza"
             android:text="EDIT"
-            android:textColor="@color/white"  />
+            android:textColor="@color/white" />
     </LinearLayout>
-
 
 
 </LinearLayout>

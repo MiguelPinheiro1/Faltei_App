@@ -50,19 +50,6 @@
             android:hint="Docente"
             android:ems="15" />
 
-        <TextView
-            android:id="@+id/textview2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Presença"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15dp"/>
-
-
-
         <EditText
             android:id="@+id/credAXML"
             android:layout_width="300dp"
@@ -74,38 +61,22 @@
             android:ems="15" />
 
         <TextView
-            android:id="@+id/textview3"
+            android:id="@+id/textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Horas por semana"
+            android:text="Faltas"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="15dp"/>
 
         <EditText
-            android:id="@+id/dia1AXML"
+            android:id="@+id/totalfAXML"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:hint="Dia 1"
-            android:inputType="number"
-            android:ems="15" />
-        <EditText
-            android:id="@+id/dia2AXML"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:hint="Dia 2"
-            android:inputType="number"
-            android:ems="15" />
-        <EditText
-            android:id="@+id/dia3AXML"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:hint="Dia 3"
+            android:hint="Espero que zero :)"
             android:inputType="number"
             android:ems="15" />
 
